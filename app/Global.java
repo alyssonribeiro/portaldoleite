@@ -57,7 +57,25 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("Labs"));
 		si1.addTema(new Tema("Minitestes"));
 		si1.addTema(new Tema("Projeto"));
+
+		Disciplina eda = new Disciplina("Estrutura de Dados e Algoritmos");
+		eda.addTema(new Tema("Vetores ou Arrays"));
+		eda.addTema(new Tema("Lista"));
+		eda.addTema(new Tema("Fila"));
+		eda.addTema(new Tema("Pilha"));
+		eda.addTema(new Tema("Árvores"));
+		eda.addTema(new Tema("Grafos"));
+		eda.addTema(new Tema("Tabela de hashing"));
+
+		Disciplina tc = new Disciplina("Teoria da Computação");
+		tc.addTema(new Tema("Autômatos"));
+		tc.addTema(new Tema("Máquina de Turing"));
+		tc.addTema(new Tema("Gramáticas Livres de Contexto"));
+		
+		dao.persist(tc);
 		dao.persist(si1);
+		dao.persist(eda);
 		dao.flush();
+	
 	}
 }
