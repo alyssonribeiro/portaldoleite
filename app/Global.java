@@ -58,6 +58,8 @@ public class Global extends GlobalSettings {
 		si1.addTema(new Tema("Minitestes"));
 		si1.addTema(new Tema("Projeto"));
 
+		// 20151121 - alyssonribeiro - INICIO
+		// Adicao de novas disciplinas e temas		
 		Disciplina eda = new Disciplina("Estrutura de Dados e Algoritmos");
 		eda.addTema(new Tema("Vetores ou Arrays"));
 		eda.addTema(new Tema("Lista"));
@@ -73,8 +75,10 @@ public class Global extends GlobalSettings {
 		tc.addTema(new Tema("Gramáticas Livres de Contexto"));
 		
 		dao.persist(tc);
-		dao.persist(si1);
 		dao.persist(eda);
+		// 20151121 - alyssonribeiro - FIM
+		
+		dao.persist(si1);
 		dao.flush();
 	
 	}
