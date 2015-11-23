@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
+//20151123 - alyssonribeiro - INICIO
+//import java.util.Random;
+//import models.Dica;
+//20151123 - alyssonribeiro - FIM
 import models.Disciplina;
 import models.Tema;
 // 20151123 - alyssonribeiro - INICIO
@@ -16,7 +20,10 @@ public class Global extends GlobalSettings {
 
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
+	// 20151123 - alyssonribeiro - INICIO
 	private List<User> userList = new ArrayList<User>();
+//	private List<Dica> dicasList = new ArrayList<Dica>();
+	// 20151123 - alyssonribeiro - FIM
 
 	
 	@Override
@@ -116,6 +123,42 @@ public class Global extends GlobalSettings {
 		
 		dao.flush();
 	}
+	// 20151123 - alyssonribeiro - FIM
+
+	// 20151123 - alyssonribeiro - INICIO
+//	private void criaDicas(int qtde){
+//		Random sorteador = new Random();
+//		
+//		for (int i = 0; i < qtde; i++) {
+//			// sorteador.nextInt(quantidade de tipos de dicas)
+//			int aux = sorteador.nextInt(4);
+//			
+//			// Dica Assunto
+//			if(aux == 1){
+//				// Criacao de Dica para assunto
+//			}
+//			
+//			// Dica Conselho
+//			else if(aux == 2){
+//				// Criacao de Dica de conselho
+//			}
+//			
+//			// Dica Disciplina
+//			else if(aux == 3){
+//				// Criacao de Dica de Disciplina
+//			}
+//			
+//			// Dica Material
+//			else if(aux == 4){
+//				// Criacao de Dica de Material
+//			}
+//			
+//			// Persiste o objeto criado no banco de dados
+//			dao.persist(dicasList.get(i));
+//		}
+//		
+//		dao.flush();
+//	}
 	// 20151123 - alyssonribeiro - FIM
 
 }
