@@ -1,8 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
-
 import models.Disciplina;
 import models.Tema;
+// 20151123 - alyssonribeiro - INICIO
+import models.User;
+// 20151123 - alyssonribeiro - FIM
 import models.dao.GenericDAOImpl;
 import play.Application;
 import play.GlobalSettings;
@@ -14,6 +16,8 @@ public class Global extends GlobalSettings {
 
 	private static GenericDAOImpl dao = new GenericDAOImpl();
 	private List<Disciplina> disciplinas = new ArrayList<>();
+	private List<User> userList = new ArrayList<User>();
+
 	
 	@Override
 	public void onStart(Application app) {
@@ -25,6 +29,14 @@ public class Global extends GlobalSettings {
 				if(dao.findAllByClassName(Disciplina.class.getName()).size() == 0){
 					criaDisciplinaTemas();
 				}
+				
+				// 20151123 - alyssonribeiro - INICIO
+				// Se tiver menos de 10 usuarios cadastrados ele cria a quantidade de usuarios 
+				// informada como parametro da funcao 'criaUsers' assim que a aplicacao eh inicializada
+				if(dao.findAllByClassName(User.class.getName()).size() < 10){
+					criaUsers(10);
+				}
+				// 20151123 - alyssonribeiro - FIM
 			}
 		});
 	}
@@ -40,6 +52,14 @@ public class Global extends GlobalSettings {
 	        for (Disciplina disciplina: disciplinas) {
 	        dao.removeById(Disciplina.class, disciplina.getId());
 	       } 
+	        
+			// 20151123 - alyssonribeiro - INICIO
+	        // Apaga os users de exemplo criados automaticamente na inicializacao
+	        for (User user: userList) {
+	        	dao.removeById(User.class, user.getId());
+	        }
+			// 20151123 - alyssonribeiro - FIM
+
 	    }}); 
 	}
 	
@@ -82,4 +102,20 @@ public class Global extends GlobalSettings {
 		dao.flush();
 	
 	}
+	
+	// 20151123 - alyssonribeiro - INICIO
+	private void criaUsers(int qtde){
+				
+		for (int i = 0; i < qtde; i++) {
+			// Cria um novo usuario e o adiciona em uma lista a ser persistida
+			userList.add(new User("user" + i, "123456", "User" + i));
+			
+			// Persiste o objeto criado no banco de dados
+			dao.persist(userList.get(i));
+		}
+		
+		dao.flush();
+	}
+	// 20151123 - alyssonribeiro - FIM
+
 }
