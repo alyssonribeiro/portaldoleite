@@ -1,11 +1,14 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 //20151123 - alyssonribeiro - INICIO
-//import java.util.Random;
-//import models.Dica;
-//20151123 - alyssonribeiro - FIM
-import models.*;
-// 20151123 - alyssonribeiro - INICIO
+import models.Dica;
+import models.DicaAssunto;
+import models.DicaConselho;
+import models.DicaMaterial;
+import models.Disciplina;
+import models.Tema;
+import models.User;
 // 20151123 - alyssonribeiro - FIM
 import models.dao.GenericDAOImpl;
 import play.Application;
@@ -43,7 +46,7 @@ public class Global extends GlobalSettings {
                     // Se tiver menos de 10 usuarios cadastrados ele cria a quantidade de usuarios
                     // informada como parametro da funcao 'criaUsers' assim que a aplicacao eh inicializada
                     if(dao.findAllByClassName(User.class.getName()).size() < 10){
-                        criaUsers(10);
+                        criaUsers();
                         if(dao.findAllByClassName(Dica.class.getName()).size() == 0){
                             criaDicas();
                             criaVotos();
@@ -122,7 +125,7 @@ public class Global extends GlobalSettings {
 	}
 	
 	// 20151123 - alyssonribeiro - INICIO
-	private void criaUsers(int qtde){
+	private void criaUsers(){
 		// 20151125 - ddspog - INICIO
         // Cria usuários com detalhes
         userList.add(new User("miguxo.joao@gmail.com", "123456", "joaomigs"));
@@ -145,17 +148,17 @@ public class Global extends GlobalSettings {
         userList.get(8).setNome("Júlio Verne");
         userList.add(new User("patriciaddprog@gmail.com", "123456", "pattys"));
         userList.get(9).setNome("Pati Dandara");
-
         // 20151125 - ddspog - FIM
 
-
-		for (int i = 0; i < 10; i++) {
-			// Cria um novo usuario e o adiciona em uma lista a ser persistida
-			//userList.add(new User("user" + i, "123456", "User" + i));
-			
-			// Persiste o objeto criado no banco de dados
-			dao.persist(userList.get(i));
+        // 20151125 - alyssonribeiro - INCIO
+        // Iterator para varrer pela lista e persistir os objetos criados
+        Iterator it = userList.iterator();
+        
+		while (it.hasNext()) {
+			User userit = (User) it.next();
+			dao.persist(userit);
 		}
+		// 20151125 - alyssonribeiro - FIM
 		
 		dao.flush();
 	}
@@ -232,40 +235,5 @@ public class Global extends GlobalSettings {
 
     }
     // 20151125 - ddspog - FIM
-	// 20151123 - alyssonribeiro - INICIO
-//	private void criaDicas(int qtde){
-//		Random sorteador = new Random();
-//		
-//		for (int i = 0; i < qtde; i++) {
-//			// sorteador.nextInt(quantidade de tipos de dicas)
-//			int aux = sorteador.nextInt(4);
-//			
-//			// Dica Assunto
-//			if(aux == 1){
-//				// Criacao de Dica para assunto
-//			}
-//			
-//			// Dica Conselho
-//			else if(aux == 2){
-//				// Criacao de Dica de conselho
-//			}
-//			
-//			// Dica Disciplina
-//			else if(aux == 3){
-//				// Criacao de Dica de Disciplina
-//			}
-//			
-//			// Dica Material
-//			else if(aux == 4){
-//				// Criacao de Dica de Material
-//			}
-//			
-//			// Persiste o objeto criado no banco de dados
-//			dao.persist(dicasList.get(i));
-//		}
-//		
-//		dao.flush();
-//	}
-	// 20151123 - alyssonribeiro - FIM
 
 }
