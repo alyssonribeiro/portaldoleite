@@ -2,13 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 //20151123 - alyssonribeiro - INICIO
-import models.Dica;
-import models.DicaAssunto;
-import models.DicaConselho;
-import models.DicaMaterial;
-import models.Disciplina;
-import models.Tema;
-import models.User;
+import models.*;
 // 20151123 - alyssonribeiro - FIM
 import models.dao.GenericDAOImpl;
 import play.Application;
@@ -166,6 +160,8 @@ public class Global extends GlobalSettings {
 
     // 20151125 - ddspog - INICIO
     private void criaDicas() {
+        Timeline timeline = new Timeline();
+
         Tema javascr = si1.getTemaByNome("JavaScript");
         DicaMaterial material01 = new DicaMaterial("https://www.codecademy.com/pt-BR/learn/javascript");
         javascr.addDica(material01);
@@ -179,6 +175,7 @@ public class Global extends GlobalSettings {
         material01.incrementaConcordancias();
         material01.addUsuarioQueVotou(userList.get(6).getLogin());
         material01.incrementaConcordancias();
+        timeline.addDica(material01);
         dicasList.add(material01);
         dao.persist(material01);
 
@@ -190,6 +187,7 @@ public class Global extends GlobalSettings {
         conselho01.setUser(userList.get(2).getNome());
         conselho01.addUsuarioQueVotou(userList.get(3).getLogin());
         conselho01.incrementaConcordancias();
+        timeline.addDica(conselho01);
         dicasList.add(conselho01);
         dao.persist(conselho01);
 
@@ -204,6 +202,7 @@ public class Global extends GlobalSettings {
         material02.incrementaDiscordancias();
         material02.addUsuarioQueVotou(userList.get(5).getLogin());
         material02.incrementaConcordancias();
+        timeline.addDica(material02);
         dicasList.add(material02);
         dao.persist(material02);
 
@@ -218,6 +217,7 @@ public class Global extends GlobalSettings {
         conselho02.incrementaConcordancias();
         conselho02.addUsuarioQueVotou(userList.get(2).getLogin());
         conselho02.incrementaConcordancias();
+        timeline.addDica(conselho02);
         dicasList.add(conselho02);
         dao.persist(conselho02);
 
@@ -226,8 +226,11 @@ public class Global extends GlobalSettings {
         projeto.addDica(assunto01);
         assunto01.setTema(projeto);
         assunto01.setUser(userList.get(4).getNome());
+        timeline.addDica(assunto01);
         dicasList.add(assunto01);
         dao.persist(assunto01);
+
+        dao.persist(timeline);
         dao.flush();
     }
 
