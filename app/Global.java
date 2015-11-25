@@ -152,10 +152,10 @@ public class Global extends GlobalSettings {
 
         // 20151125 - alyssonribeiro - INCIO
         // Iterator para varrer pela lista e persistir os objetos criados
-        Iterator it = userList.iterator();
+        Iterator<User> it = userList.iterator();
         
 		while (it.hasNext()) {
-			User userit = (User) it.next();
+			User userit = it.next();
 			dao.persist(userit);
 		}
 		// 20151125 - alyssonribeiro - FIM
