@@ -1,5 +1,6 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -132,6 +133,11 @@ public abstract class Dica implements Comparable<Dica>{
 	}
 	
 	public void addUsuarioQueVotou(String user){
+        // 20151125 - ddspog - INICIO
+
+        if(usuariosQueJaVotaram == null)
+            usuariosQueJaVotaram = new ArrayList<>();
+        // 20151125 - ddspog - FIM
 		usuariosQueJaVotaram.add(user);
 	}
 	
