@@ -43,7 +43,6 @@ public class Global extends GlobalSettings {
                         criaUsers();
                         if(dao.findAllByClassName(Dica.class.getName()).size() == 0){
                             criaDicas();
-                            criaVotos();
                         }
                     }
                     // 20151123 - alyssonribeiro - FIM
@@ -160,7 +159,7 @@ public class Global extends GlobalSettings {
 
     // 20151125 - ddspog - INICIO
     private void criaDicas() {
-        Timeline timeline = new Timeline();
+        Timeline timeline = new Timeline(dao);
 
         Tema javascr = si1.getTemaByNome("JavaScript");
         DicaMaterial material01 = new DicaMaterial("https://www.codecademy.com/pt-BR/learn/javascript");
@@ -197,8 +196,10 @@ public class Global extends GlobalSettings {
         material02.setTema(automats);
         material02.setUser(userList.get(0).getNome());
         material02.addUsuarioQueVotou(userList.get(1).getLogin());
+        material02.addUserCommentary(userList.get(1).getLogin(), "Muito chato de usar");
         material02.incrementaDiscordancias();
         material02.addUsuarioQueVotou(userList.get(8).getLogin());
+        material02.addUserCommentary(userList.get(8).getLogin(), "Achei bem complicado");
         material02.incrementaDiscordancias();
         material02.addUsuarioQueVotou(userList.get(5).getLogin());
         material02.incrementaConcordancias();
@@ -230,12 +231,28 @@ public class Global extends GlobalSettings {
         dicasList.add(assunto01);
         dao.persist(assunto01);
 
-        dao.persist(timeline);
+        Tema gof = si1.getTemaByNome("GoF");
+        DicaMaterial material03 = new DicaMaterial("http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf");
+        gof.addDica(material03);
+        material03.setTema(gof);
+        material03.setUser(userList.get(2).getNome());
+        material03.addUsuarioQueVotou(userList.get(0).getLogin());
+        material03.incrementaConcordancias();
+        material03.addUsuarioQueVotou(userList.get(4).getLogin());
+        material03.incrementaConcordancias();
+        material03.addUsuarioQueVotou(userList.get(1).getLogin());
+        material03.incrementaConcordancias();
+        material03.addUsuarioQueVotou(userList.get(5).getLogin());
+        material03.incrementaConcordancias();
+        material03.addUsuarioQueVotou(userList.get(6).getLogin());
+        material03.incrementaConcordancias();
+        material03.addUsuarioQueVotou(userList.get(7).getLogin());
+        material03.incrementaConcordancias();
+        timeline.addDica(material03);
+        dicasList.add(material03);
+        dao.persist(material03);
+
         dao.flush();
-    }
-
-    private void criaVotos() {
-
     }
     // 20151125 - ddspog - FIM
 

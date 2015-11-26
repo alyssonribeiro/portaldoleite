@@ -1,46 +1,41 @@
 package models;
 
-import javax.persistence.*;
-import java.util.ArrayList;
+import controllers.Secured;
+import models.dao.GenericDAOImpl;
+import play.db.jpa.Transactional;
+import play.mvc.Security;
+
 import java.util.List;
 
-@Entity(name="Timeline")
 public class Timeline {
 
-    private int MAX = 10;
+    private GenericDAOImpl dao;
+    private DicasOrdenadas dicas;
 
-    @Id
-    @GeneratedValue
-    @Column
-    private long id;
-
-    @OneToMany(cascade=CascadeType.ALL, orphanRemoval=true, fetch=FetchType.LAZY)
-    private List<Dica> dicas;
-
-    public Timeline(){
-        this.dicas = new ArrayList<>();
+    public Timeline(GenericDAOImpl dao){
+        this.dao = dao;
+        this.dicas = new UltimasDicas();
     }
 
-    public long getId(){
-        return this.id;
+    public void setOrdem(DicasOrdenadas tipo, List<Disciplina> disciplinas){
+        this.dicas = tipo;
+        for(Disciplina disc : disciplinas){
+            for (Tema tema : disc.getTemas()){
+                for (Dica dica : tema.getDicas()){
+                    this.dicas.addDica(dica);
+                }
+            }
+        }
+
     }
+
 
     public void addDica(Dica dica){
-        if (this.dicas.size() < 10){
-            this.dicas.add(dica);
-        } else {
-            this.dicas.remove(0);
-            this.dicas.add(dica);
-        }
+        this.dicas.addDica(dica);
     }
-
-    public void setDicas(List<Dica> dicas){
-        this.dicas = dicas;
-    }
-
 
     public List<Dica> getDicas(){
-        return this.dicas;
+        return this.dicas.getDicas();
     }
 
 }

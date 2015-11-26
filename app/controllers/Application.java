@@ -17,12 +17,19 @@ import play.mvc.Security;
 public class Application extends Controller {
 	private static final int MAX_DENUNCIAS = 3;
 	private static GenericDAOImpl dao = new GenericDAOImpl();
+	private static Timeline timeline = new Timeline(dao);
 	
 	@Transactional
 	@Security.Authenticated(Secured.class)
     public static Result index() {
-		Timeline timeline = (Timeline) dao.findAllByClassName(Timeline.class.getName()).get(0);
-		List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
+		return index(new UltimasDicas());
+    }
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result index(DicasOrdenadas tipo) {
+        List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
+        timeline.setOrdem(tipo, disciplinas);
         return ok(views.html.index.render(disciplinas, timeline));
     }
 	
@@ -83,7 +90,6 @@ public class Application extends Controller {
 		Map<String,String> formMap = filledForm.data();
 		
 		//long idTema = Long.parseLong(formMap.get("idTema"));
-		Timeline timeline = (Timeline) dao.findAllByClassName(Timeline.class.getName()).get(0);
 		Tema tema = dao.findByEntityId(Tema.class, idTema);
 		String userName = session("username");
 		
@@ -101,7 +107,6 @@ public class Application extends Controller {
 					dicaAssunto.setUser(userName);
 					timeline.addDica(dicaAssunto);
 					dao.persist(dicaAssunto);
-					dao.persist(timeline);
 					break;
 				case "conselho":
 					String conselho = formMap.get("conselho");
@@ -112,7 +117,6 @@ public class Application extends Controller {
 					dicaConselho.setUser(userName);
 					timeline.addDica(dicaConselho);
 					dao.persist(dicaConselho);
-					dao.persist(timeline);
 					break;
 				case "disciplina":
 					String disciplinas = formMap.get("disciplinas");
@@ -125,7 +129,6 @@ public class Application extends Controller {
 					dicaDisciplina.setUser(userName);
 					timeline.addDica(dicaDisciplina);
 					dao.persist(dicaDisciplina);
-					dao.persist(timeline);
 					break;
 				case "material":
 					String url = formMap.get("url");
@@ -136,7 +139,6 @@ public class Application extends Controller {
 					dicaMaterial.setUser(userName);
 					timeline.addDica(dicaMaterial);
 					dao.persist(dicaMaterial);
-					dao.persist(timeline);
 					break;
 				default:
 					break;
@@ -395,4 +397,22 @@ public class Application extends Controller {
 		
 		return redirect(routes.Application.disciplina(metaDica.getDisciplina().getId()));
 	}
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result setUltimasDicasOrdem() {
+        return index(new UltimasDicas());
+    }
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result setMelhoresDicasOrdem() {
+        return index(new MelhoresDicas());
+    }
+
+    @Transactional
+    @Security.Authenticated(Secured.class)
+    public static Result setPioresDicasOrdem() {
+        return index(new PioresDicas());
+    }
 }

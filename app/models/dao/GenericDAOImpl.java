@@ -41,7 +41,9 @@ public class GenericDAOImpl implements GenericDAO {
 
 	@Override
 	public <T> void removeById(Class<T> classe, Long id) {
-		JPA.em().remove(findByEntityId(classe, id));
+        T obj = findByEntityId(classe, id);
+		if(obj != null)
+		    JPA.em().remove(obj);
 	}
 
 	@Override
