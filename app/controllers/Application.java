@@ -6,6 +6,14 @@ import java.util.Map;
 
 import models.*;
 import models.dao.GenericDAOImpl;
+import models.dicas.DicaAssunto;
+import models.dicas.DicaConselho;
+import models.dicas.DicaDisciplina;
+import models.dicas.DicaMaterial;
+import models.timeline.OrdenadorDeDicas;
+import models.timeline.MelhoresDicas;
+import models.timeline.PioresDicas;
+import models.timeline.UltimasDicas;
 import play.Logger;
 import play.data.DynamicForm;
 import play.data.Form;
@@ -27,7 +35,7 @@ public class Application extends Controller {
 
     @Transactional
     @Security.Authenticated(Secured.class)
-    public static Result index(DicasOrdenadas tipo) {
+    public static Result index(OrdenadorDeDicas tipo) {
         List<Disciplina> disciplinas = dao.findAllByClassName(Disciplina.class.getName());
         timeline.setOrdem(tipo, disciplinas);
         return ok(views.html.index.render(disciplinas, timeline));

@@ -18,6 +18,8 @@ import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import models.dicas.DicaDisciplina;
+
 @Table(name="dica")
 @Entity(name="Dica")
 public abstract class Dica implements Comparable<Dica>{

@@ -1,9 +1,11 @@
-package models;
+package models.timeline;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class UltimasDicas implements DicasOrdenadas {
+import models.Dica;
+
+public class UltimasDicas implements OrdenadorDeDicas {
 
     private static final int MAX = 10;
     private Queue<Dica> dicas;

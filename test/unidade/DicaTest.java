@@ -1,14 +1,15 @@
 package unidade;
 
 import static org.fest.assertions.Assertions.assertThat;
+
 import models.Dica;
-import models.DicaAssunto;
-import models.DicaConselho;
-import models.DicaDisciplina;
-import models.DicaMaterial;
 import models.Disciplina;
 import models.Tema;
 import models.User;
+import models.dicas.DicaAssunto;
+import models.dicas.DicaConselho;
+import models.dicas.DicaDisciplina;
+import models.dicas.DicaMaterial;
 
 import org.junit.Before;
 import org.junit.Test;

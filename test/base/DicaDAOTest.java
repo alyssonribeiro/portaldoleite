@@ -5,11 +5,11 @@ import static org.fest.assertions.Assertions.assertThat;
 import java.util.List;
 
 import models.Dica;
-import models.DicaConselho;
 import models.Tema;
 import models.User;
 import models.dao.GenericDAO;
 import models.dao.GenericDAOImpl;
+import models.dicas.DicaConselho;
 
 import org.junit.Test;
 

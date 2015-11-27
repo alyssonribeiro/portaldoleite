@@ -5,6 +5,9 @@ import java.util.List;
 import models.*;
 // 20151123 - alyssonribeiro - FIM
 import models.dao.GenericDAOImpl;
+import models.dicas.DicaAssunto;
+import models.dicas.DicaConselho;
+import models.dicas.DicaMaterial;
 import play.Application;
 import play.GlobalSettings;
 import play.Logger;

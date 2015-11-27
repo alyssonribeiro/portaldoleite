@@ -1,4 +1,4 @@
-package models;
+package models.timeline;
 
 import java.util.Comparator;
 import java.util.List;
@@ -6,7 +6,9 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.stream.Collectors;
 
-public class PioresDicas implements DicasOrdenadas {
+import models.Dica;
+
+public class PioresDicas implements OrdenadorDeDicas {
     private static final int MAX = 10;
     private Queue<Dica> dicas;
 

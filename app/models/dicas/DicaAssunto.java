@@ -1,7 +1,9 @@
-package models;
+package models.dicas;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+
+import models.Dica;
 
 @Entity(name="DicaAssunto")
 public class DicaAssunto extends Dica{
