@@ -1,7 +1,6 @@
 @main("Login Page") {
    <div>
    @if(flash.contains("fail")) {
-      	<p data-uk-modal="{target:'#cadastro-modal'}" />
    		<p class="bg-danger" style="">
         	@flash.get("fail")
 		</p>
@@ -72,13 +71,6 @@
 				<button class="uk-button uk-button-primary" type="submit" ng-disabled="!nome || !login || !email || !password">Registrar</button>
 			</div>
 			</form>
-		</div>
-	</div>
-	
-	<div id="errorlogin-modal" class="uk-modal">
-		<div class="uk-modal-dialog">
-			<a class="uk-modal-close uk-close"></a>
-			<div class="uk-modal-header" style="background-color:#5f5f5f"><h2>Login ou senha inválidos!</h2></div>
 		</div>
 	</div>
 }
