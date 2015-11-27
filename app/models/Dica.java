@@ -95,7 +95,20 @@ public abstract class Dica implements Comparable<Dica>{
 	public void incrementaConcordancias(){
 		this.concordancias = concordancias + 1;
 	}
-	
+
+	public Dica concordar(String login){
+		addUsuarioQueVotou(login);
+		incrementaConcordancias();
+		return this;
+	}
+
+	public Dica discordar(String login, String user, String commentary){
+		addUsuarioQueVotou(login);
+		addUserCommentary(user, commentary);
+		incrementaDiscordancias();
+		return this;
+	}
+
 	public void incrementaDiscordancias(){
 		this.discordancias = discordancias + 1;
 	}

@@ -159,100 +159,63 @@ public class Global extends GlobalSettings {
 
     // 20151125 - ddspog - INICIO
     private void criaDicas() {
-        Timeline timeline = new Timeline(dao);
-
-        Tema javascr = si1.getTemaByNome("JavaScript");
-        DicaMaterial material01 = new DicaMaterial("https://www.codecademy.com/pt-BR/learn/javascript");
-        javascr.addDica(material01);
-        material01.setTema(javascr);
-        material01.setUser(userList.get(5).getNome());
-        material01.addUsuarioQueVotou(userList.get(0).getLogin());
-        material01.incrementaConcordancias();
-        material01.addUsuarioQueVotou(userList.get(3).getLogin());
-        material01.incrementaConcordancias();
-        material01.addUsuarioQueVotou(userList.get(7).getLogin());
-        material01.incrementaConcordancias();
-        material01.addUsuarioQueVotou(userList.get(6).getLogin());
-        material01.incrementaConcordancias();
-        timeline.addDica(material01);
-        dicasList.add(material01);
-        dao.persist(material01);
-
-        DicaConselho conselho01 = new DicaConselho("No Browser do Google Chrome, ao apertar F12, você pode" +
-                " utilizar um espaço para digitar comandos JavaScript. Com isso, pode-se modificar o site" +
-                " em execução e treinar bastante no assunto.");
-        javascr.addDica(conselho01);
-        conselho01.setTema(javascr);
-        conselho01.setUser(userList.get(2).getNome());
-        conselho01.addUsuarioQueVotou(userList.get(3).getLogin());
-        conselho01.incrementaConcordancias();
-        timeline.addDica(conselho01);
-        dicasList.add(conselho01);
-        dao.persist(conselho01);
-
-        Tema automats = tc.getTemaByNome("Autômatos");
-        DicaMaterial material02 = new DicaMaterial("http://www.simuladordeautomatos.com/");
-        automats.addDica(material02);
-        material02.setTema(automats);
-        material02.setUser(userList.get(0).getNome());
-        material02.addUsuarioQueVotou(userList.get(1).getLogin());
-        material02.addUserCommentary(userList.get(1).getLogin(), "Muito chato de usar");
-        material02.incrementaDiscordancias();
-        material02.addUsuarioQueVotou(userList.get(8).getLogin());
-        material02.addUserCommentary(userList.get(8).getLogin(), "Achei bem complicado");
-        material02.incrementaDiscordancias();
-        material02.addUsuarioQueVotou(userList.get(5).getLogin());
-        material02.incrementaConcordancias();
-        timeline.addDica(material02);
-        dicasList.add(material02);
-        dao.persist(material02);
-
+        Tema javascript = si1.getTemaByNome("JavaScript");
+        Tema automatos = tc.getTemaByNome("Autômatos");
         Tema play = si1.getTemaByNome("Play");
-        DicaConselho conselho02 = new DicaConselho("Procure sempre exemplos de projetos feitos com Play no github," +
-                " para então poder tirar várias dúvidas que você possa ter. Além de aprender soluções novas para" +
-                " alguns problemas.");
-        play.addDica(conselho02);
-        conselho02.setTema(play);
-        conselho02.setUser(userList.get(8).getNome());
-        conselho02.addUsuarioQueVotou(userList.get(0).getLogin());
-        conselho02.incrementaConcordancias();
-        conselho02.addUsuarioQueVotou(userList.get(2).getLogin());
-        conselho02.incrementaConcordancias();
-        timeline.addDica(conselho02);
-        dicasList.add(conselho02);
-        dao.persist(conselho02);
-
         Tema projeto = si1.getTemaByNome("Projeto");
-        DicaAssunto assunto01 = new DicaAssunto("Maestria em Play! Framework");
-        projeto.addDica(assunto01);
-        assunto01.setTema(projeto);
-        assunto01.setUser(userList.get(4).getNome());
-        timeline.addDica(assunto01);
-        dicasList.add(assunto01);
-        dao.persist(assunto01);
-
         Tema gof = si1.getTemaByNome("GoF");
-        DicaMaterial material03 = new DicaMaterial("http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf");
-        gof.addDica(material03);
-        material03.setTema(gof);
-        material03.setUser(userList.get(2).getNome());
-        material03.addUsuarioQueVotou(userList.get(0).getLogin());
-        material03.incrementaConcordancias();
-        material03.addUsuarioQueVotou(userList.get(4).getLogin());
-        material03.incrementaConcordancias();
-        material03.addUsuarioQueVotou(userList.get(1).getLogin());
-        material03.incrementaConcordancias();
-        material03.addUsuarioQueVotou(userList.get(5).getLogin());
-        material03.incrementaConcordancias();
-        material03.addUsuarioQueVotou(userList.get(6).getLogin());
-        material03.incrementaConcordancias();
-        material03.addUsuarioQueVotou(userList.get(7).getLogin());
-        material03.incrementaConcordancias();
-        timeline.addDica(material03);
-        dicasList.add(material03);
-        dao.persist(material03);
 
+        createDica(javascript, getNome(5),
+                (new DicaMaterial("https://www.codecademy.com/pt-BR/learn/javascript"))
+                        .concordar(getLogin(0))
+                        .concordar(getLogin(3))
+                        .concordar(getLogin(7))
+                        .concordar(getLogin(6)));
+        createDica(javascript, getNome(2),
+                (new DicaConselho("No Browser do Google Chrome, ao apertar F12, você pode" +
+                        " utilizar um espaço para digitar comandos JavaScript. Com isso, pode-se modificar o site" +
+                        " em execução e treinar bastante no assunto."))
+                        .concordar(getLogin(3)));
+        createDica(automatos, getNome(0),
+                (new DicaMaterial("http://www.simuladordeautomatos.com/"))
+                        .discordar(getLogin(1), getNome(1), "Muito chato de usar")
+                        .discordar(getLogin(8), getNome(8), "Achei bem complicado")
+                        .concordar(getLogin(5)));
+        createDica(play, getNome(8),
+                (new DicaConselho("Procure sempre exemplos de projetos feitos com Play no github," +
+                        " para então poder tirar várias dúvidas que você possa ter. Além de aprender soluções novas para" +
+                        " alguns problemas."))
+                        .concordar(getLogin(0))
+                        .concordar(getLogin(2)));
+        createDica(projeto, getNome(4),
+                (new DicaAssunto("Maestria em Play! Framework"))
+                        .concordar(getLogin(0)));
+        createDica(gof, getNome(2),
+                (new DicaMaterial("http://www.uml.org.cn/c++/pdf/DesignPatterns.pdf"))
+                        .concordar(getLogin(0))
+                        .concordar(getLogin(1))
+                        .concordar(getLogin(4))
+                        .concordar(getLogin(5))
+                        .concordar(getLogin(6))
+                        .concordar(getLogin(7)));
         dao.flush();
+    }
+
+    private String getLogin(int i) {
+        return userList.get(i % userList.size()).getLogin();
+    }
+
+    private String getNome(int i) {
+        return userList.get(i % userList.size()).getNome();
+    }
+
+    private void createDica(Tema t, String u, Dica d){
+        t.addDica(d);
+        d.setTema(t);
+        d.setUser(u);
+        dicasList.add(d);
+
+        dao.persist(d);
     }
     // 20151125 - ddspog - FIM
 
