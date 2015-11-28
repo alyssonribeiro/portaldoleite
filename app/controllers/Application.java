@@ -191,7 +191,7 @@ public class Application extends Controller {
 		Dica dica = dao.findByEntityId(Dica.class, idDica);
 		String login = session("login");
 		if(!dica.wasVotedByUser(login)){
-			dica.concordar(login)
+			dica.concordar(login);
 			dao.merge(dica);
 			dao.flush();
 		}

@@ -114,6 +114,7 @@ public abstract class Dica implements Comparable<Dica>{
 	public Dica denuncia(String login){
 		addUsuarioFlag(login);
 		incrementaFlag();
+		return this;
 	}
 
 	public void incrementaDiscordancias(){
