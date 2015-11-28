@@ -40,6 +40,7 @@ public class MelhoresDicas implements OrdenadorDeDicas {
     @Override
     public List<Dica> getDicas() {
         List<Dica> list = dicas.stream().collect(Collectors.toList());
+
         return list;
     }
 }

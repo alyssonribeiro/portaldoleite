@@ -21,6 +21,7 @@ public class Timeline {
 
     public void setOrdem(OrdenadorDeDicas tipo, List<Disciplina> disciplinas){
         this.dicas = tipo;
+
         for(Disciplina disc : disciplinas){
             for (Tema tema : disc.getTemas()) {
                 tema.getDicas().forEach(this.dicas::addDica);
