@@ -69,7 +69,6 @@ public abstract class Dica implements Comparable<Dica>{
 
 	public void setTema(Tema tema) {
 		this.tema = tema;
-		this.usersCommentaries = new HashMap<String,String>();
 	}
 
 	public long getId() {
@@ -81,6 +80,8 @@ public abstract class Dica implements Comparable<Dica>{
 	}
 	
 	public void addUserCommentary(String login, String commentary) {
+		if(usersCommentaries == null)
+			usersCommentaries = new HashMap<String,String>();
 		usersCommentaries.put(login, commentary);
 	}
 	
